@@ -170,36 +170,35 @@ Put the sum in the <span> element.
 If values cannot be added, put "Cannot add" in the <span> element
 
 */
+
 let runSum = 0;
 let number1 = 0;
 let number2 = 0;
-document.addEventListener('change', function (event) {
+function setSum(val){
+    if(!isNaN(val)){
+        sum.innerText = runSum;
+    }else{
+        sum.innerText = 'Cannot add';
+    }
+}
 
-	if (event.target.matches('#num1')) {
-        runSum = Number(num2.value);
-        number1 = 0;
-        number1 = Number(num1.value);
-        runSum += number1;
-        if(!isNaN(runSum)){
-            sum.innerText = runSum;
-        }else{
-            sum.innerText = 'Cannot add';
-        }
-	}
+num1.addEventListener('change', function(e){
+    console.log(e.target.id);
+    runSum = Number(num2.value);
+    number1 = 0;
+    number1 = Number(num1.value);
+    runSum += number1;
+    setSum(runSum);
+});
 
-	if (event.target.matches('#num2')) {
-        runSum = Number(num1.value);
-        number2 = 0;
-        number2 = Number(num2.value);
-        runSum += number2;
-        if(!isNaN(runSum)){
-            sum.innerText = runSum;
-        }else{
-            sum.innerText = 'Cannot add';
-        }
-	}
+num2.addEventListener('change', function(e){
+    runSum = Number(num1.value);
+    number2 = 0;
+    number2 = Number(num2.value);
+    runSum += number2;
+    setSum(runSum);
+});
 
-}, false);
 
 /*
 
@@ -210,6 +209,7 @@ When user selects a skill, create an alert with a message similar to:
 NOTE: no alert should appear when user deselects a skill.
 
 */
+
 
 
 /*
@@ -223,6 +223,7 @@ In this example, green is the new value and blue is the old value.
 Make the background color (of all favoriteColor radio buttons) the newly selected favoriteColor
 
 */
+
 
 
 /*
