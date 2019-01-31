@@ -144,7 +144,6 @@ Print the element that has the attribute.
 */
 
 function getCustomAttribute(){
-    //grab all elements on page
     const domCollection = document.querySelectorAll('*');
     for(elem of domCollection){
         if(elem.hasAttribute('data-customAttr')){
@@ -154,7 +153,7 @@ function getCustomAttribute(){
     }
 }
 
-getCustomAttribute();
+// getCustomAttribute();
 
 /*
 
@@ -171,7 +170,36 @@ Put the sum in the <span> element.
 If values cannot be added, put "Cannot add" in the <span> element
 
 */
+let runSum = 0;
+let number1 = 0;
+let number2 = 0;
+document.addEventListener('change', function (event) {
 
+	if (event.target.matches('#num1')) {
+        runSum = Number(num2.value);
+        number1 = 0;
+        number1 = Number(num1.value);
+        runSum += number1;
+        if(!isNaN(runSum)){
+            sum.innerText = runSum;
+        }else{
+            sum.innerText = 'Cannot add';
+        }
+	}
+
+	if (event.target.matches('#num2')) {
+        runSum = Number(num1.value);
+        number2 = 0;
+        number2 = Number(num2.value);
+        runSum += number2;
+        if(!isNaN(runSum)){
+            sum.innerText = runSum;
+        }else{
+            sum.innerText = 'Cannot add';
+        }
+	}
+
+}, false);
 
 /*
 
