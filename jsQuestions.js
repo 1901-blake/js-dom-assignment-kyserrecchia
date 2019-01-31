@@ -98,7 +98,7 @@ function getSpanChildren(parent){
 
 4. Hobbies
 Define function getHobbies()
-Find all checked options in the 'skills' select element.
+Find all checked options in the 'hobbies' select element.
 Print the value and the contents.
 
 */
@@ -110,10 +110,11 @@ function getHobbies(){
     const selCollection = document.getElementsByTagName('select');
     //find right one with 'skills' as name attribute
     for(sel of selCollection){
-        if(sel.getAttribute('name')==='skills'){
+        if(sel.getAttribute('name')==='hobbies'){
             selObj = sel;
         }
     }
+
     //get children collection of this specific select element
     const childCollection = selObj.childNodes;
     //loop through it finding ones with selected as 'selected' attribute
@@ -122,15 +123,15 @@ function getHobbies(){
         //#text objects are also in here as children so filter for only option tags!
         if(child.nodeName.toLowerCase()==='option'){
             if(child.getAttribute('selected')==='selected'){
-                console.log("selected hobbie value: " + child.getAttribute('value') +
-                            ", hobbie contents: " + child.innerHTML);
+                console.log(`Selected hobbie value: ${child.getAttribute('value')}`);
+                console.log(`Hobbie contents: ${child.innerHTML}`);
             }
         }
     }
 }
 
 //test
-getHobbies();
+// getHobbies();
 
 /*
 
@@ -142,6 +143,18 @@ Print the element that has the attribute.
 
 */
 
+function getCustomAttribute(){
+    //grab all elements on page
+    const domCollection = document.querySelectorAll('*');
+    for(elem of domCollection){
+        if(elem.hasAttribute('data-customAttr')){
+            console.log(`Value of data-customAttr: ${elem.getAttribute('data-customAttr')}`);
+            console.log(`Element that has that attribute: ${elem.innerHTML}`);
+        }
+    }
+}
+
+getCustomAttribute();
 
 /*
 
