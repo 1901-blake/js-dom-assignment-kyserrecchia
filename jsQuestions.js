@@ -14,7 +14,7 @@ Print that element's contents.
 
 function getUSA(){
 
-    //get ready to grab desired element
+    //set up variable for desired uSA element
     let usaElem;
     //get a colletion of every single html element on page to search through
     const domCollection = document.querySelectorAll("*");
@@ -90,7 +90,8 @@ function getSpanChildren(parent){
     }
 }
 
-getAnchorChildren();
+//test
+// getAnchorChildren();
 
 /*
 
@@ -102,7 +103,34 @@ Print the value and the contents.
 
 */
 
+function getHobbies(){
+    //set up variable for desired select
+    let selObj;
+    //get collection of select items
+    const selCollection = document.getElementsByTagName('select');
+    //find right one with 'skills' as name attribute
+    for(sel of selCollection){
+        if(sel.getAttribute('name')==='skills'){
+            selObj = sel;
+        }
+    }
+    //get children collection of this specific select element
+    const childCollection = selObj.childNodes;
+    //loop through it finding ones with selected as 'selected' attribute
+    //  and print their 'value' attribute and contents
+    for(child of childCollection){
+        //#text objects are also in here as children so filter for only option tags!
+        if(child.nodeName.toLowerCase()==='option'){
+            if(child.getAttribute('selected')==='selected'){
+                console.log("selected hobbie value: " + child.getAttribute('value') +
+                            ", hobbie contents: " + child.innerHTML);
+            }
+        }
+    }
+}
 
+//test
+getHobbies();
 
 /*
 
