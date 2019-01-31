@@ -9,24 +9,20 @@ Use the provided index.html
 Define function getUSA()
 Find the html element that contains "USA".
 Print that element's contents.
-
+ 
 */
 
 function getUSA(){
 
     //get ready to grab desired element
     let usaElem;
-    //get boolean to break from for-loop as early as possible
-    let hasUSA = false;
     //get a colletion of every single html element on page to search through
     const domCollection = document.querySelectorAll("*");
-    //get length of collection for for-loop max possible iteration length
-    let len = domCollection.length;
 
-    for(let i=0; i<len && !hasUSA; i++){
-        if(domCollection[i].innerText === 'USA'){
-            hasUSA = true;
-            usaElem = domCollection[i];
+    for(elem of domCollection){
+        if(elem.innerText === 'USA'){
+            usaElem = elem
+            break;
         }
     }
 
@@ -50,14 +46,12 @@ function getPeopleInSales(){
 
     //get collection of employee names
     const empCollection = document.getElementsByClassName("empName");
-    //get array from collection then map over it and print
-    const empArr = Array.from(empCollection);
     //check if next element sales sales, if so, print that employee!
-    empArr.map(emp => {
-        if(emp.nextElementSibling.innerText === 'Sales'){
-            console.log(emp.innerText);
+    for(emp of empCollection){
+        if(emp.nextElementSibling.innerText.toLowerCase() === 'sales'){
+            console.log(emp.innerHTML)
         }
-    });
+    }
 }
 
 //test
@@ -76,26 +70,24 @@ Print the contents of <span>
 function getAnchorChildren(){
 
     //get collection of anchor elements
-    const anchorCollection = document.getElementsByTagName("a");
-    //get array from collection then map over it and print
-    const anchorArr = Array.from(anchorCollection);
-    //check if next element sales sales, if so, print that employee!
-    //helper function 'getSpanChildren' defined below
-    anchorArr.map(anchor => getSpanChildren(anchor));
+    const aCollection = document.getElementsByTagName("a");
+
+    for(a of aCollection){
+        //only get span children and print their contents
+        getSpanChildren(a);
+    }
 }
 
+    //helper function 'getSpanChildren' 
 function getSpanChildren(parent){
     //get collection of child nodes for a parent
     const childCollection = parent.childNodes;
-    // console.log(childCollection);
-    //get array from collection then check each and print if span
-    const childArr = Array.from(childCollection);
-    childArr.map(child => {
-        // console.log(child.nodeName);
+
+    for(child of childCollection){
         if(child.nodeName.toLowerCase()==='span'){
             console.log(child.innerHTML);
         }
-    });
+    }
 }
 
 getAnchorChildren();
