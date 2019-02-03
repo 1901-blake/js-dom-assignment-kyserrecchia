@@ -288,7 +288,6 @@ function setBackColor(favColors, favColor) {
     }
 }
 
-
 favColorEvent();
 
 /*
@@ -327,6 +326,15 @@ The time should be accurate to the second without having to reload the page.
 */
 
 
+setInterval(
+    function() {
+        let d = new Date(); 
+        let t = `${d.getHours()==0 ? "0" + d.getHours() : d.getHours()}:${
+                    d.getMinutes()<10 ? "0" + d.getMinutes() : d.getMinutes()}:${
+                    d.getSeconds()<10 ? "0" + d.getSeconds() : d.getSeconds()} ${
+                    d.getHours()<13 ? "AM" : "PM"}`;
+        currentTime.innerHTML = t;
+    }, 1000);
 
 /*
 
