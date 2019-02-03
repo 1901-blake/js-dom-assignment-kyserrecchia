@@ -210,7 +210,18 @@ NOTE: no alert should appear when user deselects a skill.
 
 */
 
+function skillsEvent(){
+    const skillList = document.getElementsByName('skills');
+    const skills = skillList[0];
+    
+    skills.addEventListener('change', function(e){
+        let selIndex = skills.selectedIndex;
+        let skill = skills.options[selIndex].value;
+        alert(`Are you sure ${skill.toUpperCase()} is one of your skills?`);
+    });   
+}
 
+skillsEvent();
 
 /*
 
@@ -225,6 +236,60 @@ Make the background color (of all favoriteColor radio buttons) the newly selecte
 */
 
 
+var UID = {
+	_current: 0,
+	getNew: function(){
+		this._current++;
+		return this._current;
+	}
+};
+
+HTMLElement.prototype.pseudoStyle = function(element,prop,value){
+	var _this = this;
+	var _sheetId = "pseudoStyles";
+	var _head = document.head || document.getElementsByTagName('head')[0];
+	var _sheet = document.getElementById(_sheetId) || document.createElement('style');
+	_sheet.id = _sheetId;
+	var className = "pseudoStyle" + UID.getNew();
+	
+	_this.className +=  " "+className; 
+	
+	_sheet.innerHTML += " ."+className+":"+element+"{"+prop+":"+value+"}";
+	_head.appendChild(_sheet);
+	return this;
+};
+
+
+function favColorEvent() {
+    const favColors = document.getElementsByName('favoriteColor');
+    let oldFavColor;
+    // do not run first time because there is nothing to compare to!
+    let firstRun = true;
+    // add event listeners to each color because you can't put a listener on the nodelist they're all in
+    for(color of favColors) {
+        color.addEventListener('change', function(e) {
+            if(firstRun) {
+                firstRun = false;
+                oldFavColor = this.value;
+                setBackColor(favColors, this.value);
+            } else {
+                alert(`So you like ${this.value} more than ${oldFavColor} now?`);
+                oldFavColor = this.value;
+                setBackColor(favColors, this.value);
+            }
+        }); 
+    }
+}
+
+function setBackColor(favColors, favColor) {
+    for(color of favColors) {
+        color.pseudoStyle("before", "content", "'__________'")
+        color.pseudoStyle("before","background-color", favColor);
+    }
+}
+
+
+favColorEvent();
 
 /*
 
@@ -236,6 +301,20 @@ When user hovers over an employees name:
     
 */
 
+const empNames = document.getElementsByClassName('empName');
+for(emp of empNames) {
+    emp.style.opacity = '1';
+}
+
+for(emp of empNames) {
+    emp.addEventListener('mouseover', function(e) {
+        if(this.style.opacity==='1') {
+            this.style.opacity = '0';
+        } else {
+            this.style.opacity = '1';
+        }
+    });
+}
 
 /*
 
@@ -246,6 +325,7 @@ Show the current time in this element in this format: 9:05:23 AM
 The time should be accurate to the second without having to reload the page.
 
 */
+
 
 
 /*
@@ -259,6 +339,7 @@ Three seconds after a user clicks on this element, change the text to a random c
 */
 
 
+
 /*
 
 12. Walk the DOM
@@ -266,8 +347,9 @@ Define function walkTheDOM(node, func)
 This function should traverse every node in the DOM. Use recursion.
 On each node, call func(node).
 
-
 */
+
+
 
 
 
